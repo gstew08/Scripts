@@ -1,0 +1,13 @@
+#!/bin/bash
+USERNAME=username
+PASS=password
+HOSTS="ip1 ip2"
+for HOSTNAME in ${HOSTS} ; do
+    sshpass -p $PASS ssh -o StrictHostKeyChecking=no -l ${USERNAME} ${HOSTNAME}  mca-dump | grep mac  >> /var/prtg/scripts/testresult
+done
+
+awk '!x[$0]++' testresult > testresult2
+sed -e '1,/"mac": "04:18:d6:X:X:X",/d' -e '/"mac": "04:18:d6:X:X:X",/,$d' testresult2 > apadminresult
+sed -e '1,/"mac": "04:18:d6:X:X:X",/d' testresult2 | sed 1d > apguestresult
+rm testresult
+rm testresult2
