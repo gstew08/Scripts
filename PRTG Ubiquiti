@@ -1,0 +1,5 @@
+#!/bin/bash
+Sort=$(grep mac /path/to/file | sort -u | wc -l)
+echo "0:"$Sort":Connected"
+
+##run in prtg to monitor ubiquit script above
